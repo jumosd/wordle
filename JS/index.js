@@ -18,6 +18,23 @@ function appStart() {
     attempts += 1
     index =0
   }
+
+  const handleBackSpace = (e) => {
+    // 백스페이스를 누르면 인덱스 -1 인덱스가 0이면 작동안되게해야함
+    // 인덱스-1 과 동시에 board-block 에 텍스트 사라짐
+    if (e.key == "Backspace") {
+      let removeWord = document.querySelector(`.board-block[data-index='${attempts}${index-1}']`)
+      if( index === 0){
+        e.preventDefault()
+        console.log(index)
+      }else{
+        removeWord.innerText = ""
+        index -= 1;
+        console.log(index)
+      }
+    }
+  }
+  
   const handleKeydown = (e) => {
     var key2 = e.key;
     const englishPattern = /^[A-Za-z]+$/;
