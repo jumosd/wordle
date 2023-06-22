@@ -14,6 +14,10 @@ setInterval(Time, 10)
 let attempts = 0;
 let index = 0;
 function appStart() {
+  const handleEnterkey = ()=> {
+    attempts += 1
+    index =0
+  }
   const handleKeydown = (e) => {
     const key = e.key.toUpperCase();
     const keyCode = e.keyCode;
@@ -21,6 +25,13 @@ function appStart() {
       `.board-block[data-index='${attempts}${index}']`
       );
       
+      if (key === "ENTER" && index === 5) {
+        handleEnterkey()
+      }else{
+        if (index === 5) 
+        index = 5
+    }    
+
     if (65 <= keyCode && keyCode <= 90) {
       if(index != 5){
         console.log(key, typeof key , e.keyCode, index);
