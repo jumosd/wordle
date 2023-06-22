@@ -14,22 +14,32 @@ setInterval(Time, 10)
 
 let attempts = 0;
 let index = 0;
-let answer = "apple"
+let answer = "APPLE"
+
 
 function appStart() {
 
   const handleEnterkey = ()=> {
-    const word1 = document.querySelector(`.board-block[data-index='${attempts}0']`).textContent;
-    const word2 = document.querySelector(`.board-block[data-index='${attempts}1']`).textContent;
-    const word3 = document.querySelector(`.board-block[data-index='${attempts}2']`).textContent;
-    const word4 = document.querySelector(`.board-block[data-index='${attempts}3']`).textContent;
-    const word5 = document.querySelector(`.board-block[data-index='${attempts}4']`).textContent;
-    const inputWord = word1+word2+word3+word4+word5;
-    
-    if(answer.toUpperCase() === inputWord){
-      alert('정답입니다.');
-    }else{
-      alert('틀렸어요')
+
+    for (i=0; i<5; i++){
+      const block = document.querySelector(`.board-block[data-index='${attempts}${i}']`)
+      const word = block.innerText;
+      // const word2 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
+      // const word3 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
+      // const word4 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
+      // const word5 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
+      console.log(word, answer[i])
+      
+      if (word === answer[i]){
+        block.style.background = "green";
+      }
+    // }
+    // inputWord
+    // if(answer.toUpperCase() === inputWord){
+    //   alert('정답입니다.');
+    // }else{
+    //   alert('틀렸어요')
+
     }
     
 
