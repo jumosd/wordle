@@ -11,3 +11,25 @@ const Time = () => {
   }
 }
 setInterval(Time, 10)
+let attempts = 0;
+let index = 0;
+function appStart() {
+  const handleKeydown = (e) => {
+    const key = e.key.toUpperCase();
+    const keyCode = e.keyCode;
+    const thisBlock = document.querySelector(
+      `.board-block[data-index='${attempts}${index}']`
+      );
+      
+    if (65 <= keyCode && keyCode <= 90) {
+      if(index != 5){
+        console.log(key, typeof key , e.keyCode, index);
+        thisBlock.innerText = key;
+        index += 1;
+      }else{
+        e.preventDefault()
+      }
+    }
+    
+  window.addEventListener("keydown", handleKeydown);
+appStart();
