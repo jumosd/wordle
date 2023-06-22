@@ -5,18 +5,37 @@ const Time = () => {
   const secounds = String(currentTime.getSeconds()).padStart(2,'0')
   if (hours > 12) {
     const pmHours = hours - 12;
-    document.querySelector('.current-time span').innerText = `${pmHours}시 ${minutes}분 ${secounds}초`
+    document.querySelector('.current-time span').innerText = `오후 ${pmHours}시 ${minutes}분 ${secounds}초`
   } else {
-    document.querySelector('.current-time span').innerText = `${hours}시 ${minutes}분 ${secounds}초`
+    document.querySelector('.current-time span').innerText = `오전 ${hours}시 ${minutes}분 ${secounds}초`
   }
 }
 setInterval(Time, 10)
+
 let attempts = 0;
 let index = 0;
+let answer = "apple"
+
 function appStart() {
+
   const handleEnterkey = ()=> {
+    const word1 = document.querySelector(`.board-block[data-index='${attempts}0']`).textContent;
+    const word2 = document.querySelector(`.board-block[data-index='${attempts}1']`).textContent;
+    const word3 = document.querySelector(`.board-block[data-index='${attempts}2']`).textContent;
+    const word4 = document.querySelector(`.board-block[data-index='${attempts}3']`).textContent;
+    const word5 = document.querySelector(`.board-block[data-index='${attempts}4']`).textContent;
+    const inputWord = word1+word2+word3+word4+word5;
+    
+    if(answer.toUpperCase() === inputWord){
+      alert('정답입니다.');
+    }else{
+      alert('틀렸어요')
+    }
+    
+
     attempts += 1
     index =0
+
   }
 
   const handleBackSpace = (e) => {
@@ -67,5 +86,9 @@ function appStart() {
       }
     }
     
+    handleBackSpace(e)
+  };
   window.addEventListener("keydown", handleKeydown);
+}
+
 appStart();
