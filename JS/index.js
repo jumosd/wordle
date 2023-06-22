@@ -19,6 +19,14 @@ function appStart() {
     index =0
   }
   const handleKeydown = (e) => {
+    var key2 = e.key;
+    const englishPattern = /^[A-Za-z]+$/;
+    if (!englishPattern.test(key2)) {
+      alert('영어만 입력해주세용')
+      e.preventDefault(); // 영어 키가 아닌 경우 기본 동작을 취소합니다.
+      return;
+    }
+
     const key = e.key.toUpperCase();
     const keyCode = e.keyCode;
     const thisBlock = document.querySelector(
