@@ -19,8 +19,33 @@ let answer = "APPLE"
 
 function appStart() {
 
-  const handleEnterkey = ()=> {
+  const finishGame = () =>{
+    console.log("피니시게임실행")
+    let check = 0
+    for(i=0; i < 5; i++){
+      for(j=0; j<5; j++){
+        const block = document.querySelector(`.board-block[data-index='${i}${j}']`)
+        
+        const computedStyle = window.getComputedStyle(block);
+        const backgroundColor = computedStyle.backgroundColor;
+        console.log(backgroundColor);
 
+
+        if(backgroundColor === "rgb(107, 170, 100)"){
+          check += 1;
+        }
+      if(check === 5){
+        setTimeout(alert("정답입니다"),1000)
+        window.removeEventListener('keydown',handleKeydown)
+
+        // location.reload()
+        return
+      }
+      }
+    }
+  }
+
+  const handleEnterkey = ()=> {
     for (i=0; i<5; i++){
       const block = document.querySelector(`.board-block[data-index='${attempts}${i}']`)
       const word = block.innerText;
@@ -29,23 +54,23 @@ function appStart() {
       // const word4 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
       // const word5 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
       console.log(word, answer[i])
+      if (document.querySelector('.keyboard-block').innerText === word){
+      }
       
       if (word === answer[i]){
-        block.style.background = "green";
+        block.style.background = "#6BAA64";
+
+      }else if (answer.includes(word)){
+        block.style.background = "#CAB458";
+      }else{
+        block.style.background = "#787c7e";
       }
-    // }
-    // inputWord
-    // if(answer.toUpperCase() === inputWord){
-    //   alert('정답입니다.');
-    // }else{
-    //   alert('틀렸어요')
 
     }
-    
-
+  
     attempts += 1
     index =0
-
+    finishGame()
   }
 
   const handleBackSpace = (e) => {
@@ -98,6 +123,7 @@ function appStart() {
     
     handleBackSpace(e)
   };
+  
   window.addEventListener("keydown", handleKeydown);
 }
 
