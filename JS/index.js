@@ -35,7 +35,7 @@ function appStart() {
           check += 1;
         }
       if(check === 5){
-        setTimeout(alert("정답입니다"),1000)
+        alert("정답입니다");
         window.removeEventListener('keydown',handleKeydown)
 
         // location.reload()
@@ -95,8 +95,8 @@ function appStart() {
     const englishPattern = /^[A-Za-z]+$/;
     if (!englishPattern.test(key2)) {
       const div = document.createElement('div')
-      div.innerText = '영어만 입력 해주세요.'
-      div.style = "font-size: 2em; font-weight:900; display: flex; justify-content: center; align-items: center; ; background-color: white; width: 350px; height: 200px; border:1px solid gray; position:absolute; top:20vh; left: 44vw;"
+      div.innerText = '영어만 입력 가능 합니다.'
+      div.style = "font-size: 2em; font-weight:900; display: flex; justify-content: center; align-items: center; ; background-color: white; width: 350px; height: 200px; border:1px solid gray; position:absolute; top:20%; left: 44.5%;"
       document.body.appendChild(div);
 
       setTimeout(function()  {
