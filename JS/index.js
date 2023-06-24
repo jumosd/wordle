@@ -90,10 +90,19 @@ function appStart() {
   }
   
   const handleKeydown = (e) => {
+    console.log(e)
     var key2 = e.key;
     const englishPattern = /^[A-Za-z]+$/;
     if (!englishPattern.test(key2)) {
-      alert('영어만 입력해주세용')
+      const div = document.createElement('div')
+      div.innerText = '영어만 입력 해주세요.'
+      document.body.appendChild(div);
+
+      setTimeout(function()  {
+      div.remove() }, 1000);
+
+//  3초 후 함수가 실행됨
+
       e.preventDefault(); // 영어 키가 아닌 경우 기본 동작을 취소합니다.
       return;
     }
