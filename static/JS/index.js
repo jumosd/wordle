@@ -18,7 +18,6 @@ setInterval(Time, 10);
 
 let attempts = 0;
 let index = 0;
-let answer = "APPLE";
 
 function appStart() {
   const finishGame = () => {
@@ -48,7 +47,14 @@ function appStart() {
     }
   };
 
-  const handleEnterkey = () => {
+  const handleEnterkey = async () => {
+    const 응답 = await fetch("/answer");
+    console.log(응답);
+    const 정답객체 = await 응답.json();
+    console.log(정답객체);
+    const 정답 = 정답객체.answer;
+    console.log(정답);
+    let answer = 정답;
     for (i = 0; i < 5; i++) {
       const block = document.querySelector(
         `.board-block[data-index='${attempts}${i}']`
@@ -58,7 +64,7 @@ function appStart() {
       // const word3 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
       // const word4 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
       // const word5 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
-      console.log(word, answer[i]);
+
       if (document.querySelector(".keyboard-block").innerText === word) {
       }
 
