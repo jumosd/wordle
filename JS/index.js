@@ -1,5 +1,6 @@
 const Time = () => {
   const currentTime = new Date();
+  const years = currentTime.getFullYear();
   const hours = currentTime.getHours();
   const minutes = currentTime.getMinutes();
   const secounds = String(currentTime.getSeconds()).padStart(2, "0");
@@ -7,11 +8,11 @@ const Time = () => {
     const pmHours = hours - 12;
     document.querySelector(
       ".current-time span"
-    ).innerText = `오후 ${pmHours}시 ${minutes}분 ${secounds}초`;
+    ).innerText = `${years}년 오후 ${pmHours}시 ${minutes}분 ${secounds}초`;
   } else {
     document.querySelector(
       ".current-time span"
-    ).innerText = `오전 ${hours}시 ${minutes}분 ${secounds}초`;
+    ).innerText = `${years}년 오전 ${hours}시 ${minutes}분 ${secounds}초`;
   }
 };
 setInterval(Time, 10);
