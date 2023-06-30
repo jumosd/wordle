@@ -20,24 +20,13 @@ setInterval(Time, 10);
 let attempts = 0;
 let index = 0;
 let answer = "APPLE";
+let keyboard = [];
 
 function appStart() {
   const finishGame = () => {
-    console.log("피니시게임실행");
-    let check = 0;
     for (i = 0; i < 5; i++) {
       for (j = 0; j < 5; j++) {
-        const block = document.querySelector(
-          `.board-block[data-index='${i}${j}']`
-        );
-
-        const computedStyle = window.getComputedStyle(block);
-        const backgroundColor = computedStyle.backgroundColor;
-        console.log(backgroundColor);
-
-        if (backgroundColor === "rgb(107, 170, 100)") {
-          check += 1;
-        }
+        let check = 0;
         if (check === 5) {
           alert("정답입니다");
           window.removeEventListener("keydown", handleKeydown);
@@ -45,36 +34,64 @@ function appStart() {
           // location.reload()
           return;
         }
+        const block = document.querySelector(
+          `.board-block[data-index='${i}${j}']`
+        );
+
+        const computedStyle = window.getComputedStyle(block);
+        const backgroundColor = computedStyle.backgroundColor;
+
+        if (backgroundColor === "rgb(107, 170, 100)") {
+          check += 1;
+        }
       }
     }
   };
 
+  function keyboard_input_val(return_word) {
+    // 키보드 입력칸 바꾸기
+    let keyboard = document.querySelectorAll(".keyboard-block");
+
+    for (i = 0; i < 5; i++) {}
+  }
+
   const handleEnterkey = () => {
+    //정답칸 바꾸기
+    console.log("enter");
+    let input_val = [];
     for (i = 0; i < 5; i++) {
       const block = document.querySelector(
         `.board-block[data-index='${attempts}${i}']`
       );
       const word = block.innerText;
-      // const word2 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
-      // const word3 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
-      // const word4 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
-      // const word5 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
-      console.log(word, answer[i]);
-      if (document.querySelector(".keyboard-block").innerText === word) {
-      }
+      let keyboard = document.querySelector(
+        `.keyboard-block[keyboard='${word}']`
+      );
+
+      input_val.push(word);
 
       if (word === answer[i]) {
         block.style.background = "#6BAA64";
+        keyboard.style.background = "#6BAA64";
       } else if (answer.includes(word)) {
         block.style.background = "#CAB458";
+        keyboard.style.background = "#CAB458";
       } else {
         block.style.background = "#787c7e";
+        keyboard.style.background = "#787c7e";
       }
+      // for (j = 0; j < keyboard.length; i++) {
+      //   if (keyboard[j].innerText === word) {
+      //     keyboard[j].style.backgroundColor = "#6BAA64";
+      //   }
+      // }
     }
 
     attempts += 1;
     index = 0;
+
     finishGame();
+    return input_val;
   };
 
   const handleBackSpace = (e) => {
@@ -86,17 +103,14 @@ function appStart() {
       );
       if (index === 0) {
         e.preventDefault();
-        console.log(index);
       } else {
         removeWord.innerText = "";
         index -= 1;
-        console.log(index);
       }
     }
   };
 
   const handleKeydown = (e) => {
-    console.log(e);
     var key2 = e.key;
     const englishPattern = /^[A-Za-z]+$/;
     if (!englishPattern.test(key2)) {
@@ -130,7 +144,6 @@ function appStart() {
 
     if (65 <= keyCode && keyCode <= 90) {
       if (index != 5) {
-        console.log(key, typeof key, e.keyCode, index);
         thisBlock.innerText = key;
         index += 1;
       } else {
