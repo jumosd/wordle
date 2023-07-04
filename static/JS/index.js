@@ -48,40 +48,55 @@ function appStart() {
   };
 
   const handleEnterkey = async () => {
-    const 응답 = await fetch("/answer");
-    console.log(응답);
-    const 정답객체 = await 응답.json();
-    console.log(정답객체);
-    const 정답 = 정답객체.answer;
-    console.log(정답);
-    let answer = 정답;
+    const res = await fetch("/answer");
+
+    const answerobj = await res.json();
+    console.log(answerobj);
+    let answer = answerobj.answer;
+
+    let input_val = [];
+
     for (i = 0; i < 5; i++) {
       const block = document.querySelector(
         `.board-block[data-index='${attempts}${i}']`
       );
-      const word = block.innerText;
-      // const word2 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
-      // const word3 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
-      // const word4 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
-      // const word5 = document.querySelector(`.board-block[data-index='${attempts}${i}']`).textContent;
 
-      if (document.querySelector(".keyboard-block").innerText === word) {
-      }
+      const word = block.innerText;
+      let keyboard = document.querySelector(
+        `.keyboard-block[data-key='${word}']`
+      );
+      input_val.push(word);
 
       if (word === answer[i]) {
         block.style.background = "#6BAA64";
+        keyboard.style.background = "#6BAA64";
       } else if (answer.includes(word)) {
         block.style.background = "#CAB458";
+        keyboard.style.background = "#CAB458";
       } else {
         block.style.background = "#787c7e";
+        keyboard.style.background = "#787c7e";
       }
     }
 
     attempts += 1;
     index = 0;
     finishGame();
+    return input_val;
   };
 
+  const handleMouseclick = (e) => {
+    let mouseKey = e.target.dataset.key;
+    const thisBlock = document.querySelector(
+      `.board-block[data-index='${attempts}${index}']`
+    );
+    if (index != 5) {
+      thisBlock.innerText = mouseKey;
+      index += 1;
+    } else {
+      e.preventDefault();
+    }
+  };
   const handleBackSpace = (e) => {
     // 백스페이스를 누르면 인덱스 -1 인덱스가 0이면 작동안되게해야함
     // 인덱스-1 과 동시에 board-block 에 텍스트 사라짐
@@ -135,7 +150,6 @@ function appStart() {
 
     if (65 <= keyCode && keyCode <= 90) {
       if (index != 5) {
-        console.log(key, typeof key, e.keyCode, index);
         thisBlock.innerText = key;
         index += 1;
       } else {
@@ -147,6 +161,7 @@ function appStart() {
   };
 
   window.addEventListener("keydown", handleKeydown);
+  window.addEventListener("click", handleMouseclick);
 }
 
 appStart();
